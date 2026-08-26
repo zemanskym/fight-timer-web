@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'"/>
+  <meta name="referrer" content="no-referrer"/>
+  <title>Fight Timer</title>
+
+  <!-- PWA / iPhone "Add to Home Screen" -->
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Fight Timer"/>
+  <!-- The app's ground. Must stay in step with the Android launcher background and
+       theme colours; npm run check fails if they diverge. -->
+  <meta name="theme-color" content="#140505"/>
+  <meta name="description" content="Fight Timer — round timer for boxing, MMA and kickboxing."/>
+  <link rel="manifest" href="manifest.webmanifest"/>
+
+  <!-- Runs before the first paint, and does exactly one thing: puts back the ground and
+       the ink the app resolved last time (see where ft-boot is written). The CSS in this
+       file carries the DARK palette as its default, which is right for a first launch and
+       wrong for anyone who chose light - they used to get a black screen that jumped to
+       white once React mounted, and on a 2016 phone that is a second of the wrong theme.
+       Inline custom properties on <html> beat :root, so there are no cascade games. No
+       first-launch case to handle either: no key, no change, dark. -->
+  <script>try{var _b=localStorage.getItem("ft-boot");if(_b){_b=_b.split("|");
+    var _k=["--base","--fg","--blob-a","--blend","--veil","--g1","--g2","--g3"],
+    _r=document.documentElement.style;
+    for(var _i=0;_i<_k.length&&_i<_b.length;_i++)_r.setProperty(_k[_i],_b[_i]);
+    var _m=document.querySelector('meta[name="theme-color"]');
+    if(_m)_m.setAttribute("content",_b[0]);}}catch(e){}</script>
+
+  <!-- Home screen icon on iPhone (Safari uses apple-touch-icon) -->
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"/>
+
+  <link rel="stylesheet" href="app-436c10bad0.css"/>
+</head>
+<body>
+<div id="bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="veil"></div></div>
+<div id="root"></div>
+<!-- The mark, painted by the FIRST frame the WebView draws, before a single line of the
+     app has run. Without it a cold start on a slow phone reads as three events: the
+     system splash shows the logo, the logo vanishes while the web payload boots, and
+     then the app's own logo blooms back in - reported from a Galaxy A5 (2016), where
+     that gap is seconds long. This element is the bridge across it, so the mark simply
+     stays put until it travels to its corner. React removes it in a layout effect, in
+     the same frame it first paints, and on native the bloom is skipped so the handover
+     is invisible. No background of its own: the page's own ground shows through, which
+     is one less colour to get wrong. 156.6px is the mark's size at the start of the
+     intro - 54 px drawn at scale 2.9 - so nothing moves when the app takes over. -->
+<div id="boot"><img src="logo.png" alt="" width="112" height="103"/></div>
+<script src="app-3cdf4cd304.js" defer></script>
+
+<!-- No service worker here on purpose. Registration lives in the bundle that
+     tools/build.mjs produces, so it only ever runs against a hashed dist/ — which is
+     what stops the dev copy from installing a worker that then serves its own stale
+     HTML back to me. -->
+</body>
+</html>
