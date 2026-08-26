@@ -53,42 +53,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "install-prompt/1-setup.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Pick a format and start"
-    },
-    {
-      "src": "install-prompt/2-countdown.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Ten seconds to get ready"
-    },
-    {
-      "src": "install-prompt/3-round.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "The round, counting down"
-    },
-    {
-      "src": "install-prompt/4-rest.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Rest between rounds"
-    },
-    {
-      "src": "install-prompt/5-victory.png",
-      "sizes": "1080x1920",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Fight over"
-    }
   ]
 }
